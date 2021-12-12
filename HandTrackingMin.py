@@ -27,8 +27,6 @@ while True:
       for id, landmark in enumerate(handLandmark.landmark):
         h, w, c = img.shape
         cx, cy = int(landmark.x * w), int(landmark.y * h)
-        # if id == 0:
-          # cv.circle(img, (cx, cy), 10, (255, 0, 255), cv.FILLED)
       mpDraw.draw_landmarks(img, handLandmark, mpHands.HAND_CONNECTIONS)
   
   currentTime = time.time()
