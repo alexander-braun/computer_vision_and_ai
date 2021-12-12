@@ -28,17 +28,17 @@ class HandDetector():
     return img
   
   def findPosition(self, img, handNumber = 0, draw = True):
-    landmarList = []
+    landmarkList = []
     if self.results.multi_hand_landmarks:
       hand = self.results.multi_hand_landmarks[handNumber]
       for id, landmark in enumerate(hand.landmark):
         h, w, c = img.shape
         cx, cy = int(landmark.x * w), int(landmark.y * h)
-        landmarList.append([id, cx, cy])
+        landmarkList.append([id, cx, cy])
         if draw:
          cv.circle(img, (cx, cy), 7, (255, 0, 0), cv.FILLED)
       
-    return landmarList
+    return landmarkList
 
 def main():
   previousTime = 0
