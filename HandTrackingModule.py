@@ -36,8 +36,7 @@ class HandDetector():
         cx, cy = int(landmark.x * w), int(landmark.y * h)
         landmarkList.append([id, cx, cy])
         if draw:
-         cv.circle(img, (cx, cy), 7, (255, 0, 0), cv.FILLED)
-      
+          cv.circle(img, (cx, cy), 3, (255, 0, 0), cv.FILLED)
     return landmarkList
 
 def main():
@@ -51,6 +50,7 @@ def main():
     success, img = cap.read()
     img = detector.findHands(img=img)
     positionList = detector.findPosition(img)
+    print(positionList)
     
     if len(positionList) != 0:
       print(positionList[4])
