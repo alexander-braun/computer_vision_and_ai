@@ -5,7 +5,6 @@ import os
 import HandTrackingModule as htm
 
 overlay = []
-
 for i in range(4):
   image = cv.imread(f'./resources/paint/{i + 1}.jpg')
   overlay.append(image)
@@ -38,9 +37,9 @@ while True:
     indexX, indexY = positions[8][1:]
     middleX, middleY = positions[12][1:]
     
-    if positions[6][2] > positions[8][2]:
+    if positions[6][2] > indexY:
       indexUp = True
-    if positions[10][2] > positions[12][2]:
+    if positions[10][2] > middleY:
       ringUp = True
       
     if indexUp and ringUp:
@@ -69,22 +68,16 @@ while True:
         cv.line(img, (xp, yp), (indexX, indexY), currentColor, brushThickness + 20)
         cv.line(imgCanvas, (xp, yp), (indexX, indexY), currentColor, brushThickness + 20)
 
-      cv.line(img, (xp, yp), (indexX, indexY), currentColor, brushThickness)
       cv.line(imgCanvas, (xp, yp), (indexX, indexY), currentColor, brushThickness)
       xp, yp = indexX, indexY
   
+  # overlay canvas over img
   imgGray = cv.cvtColor(imgCanvas, cv.COLOR_BGR2GRAY)
   _, imgInv = cv.threshold(imgGray, 10, 255, cv.THRESH_BINARY_INV)
   imgInv = cv.cvtColor(imgInv, cv.COLOR_GRAY2BGR)
   img = cv.bitwise_and(img, imgInv)
   img = cv.bitwise_or(img, imgCanvas)
 
-  
   img[0:208, 0:1280] = header
-  
-  # Overlay img
-  
-  
   cv.imshow('IMG', img)
-  cv.imshow('Canvas', imgCanvas)
   cv.waitKey(1)
