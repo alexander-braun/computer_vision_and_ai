@@ -15,6 +15,7 @@ pTime = 0
 
 while True:
   success, img = cap.read()
+  img = cv.resize(img, (1280, 700))
   img = detector.findPose(img)
   position = detector.findPosition(img)
   
@@ -35,6 +36,8 @@ while True:
   cTime = time.time()
   fps = 1 / (cTime - pTime)
   pTime = cTime
+  
+  cv.putText(img, f'left arm lifts: {left}, right arm lifts: {right}', (30, 30), cv.FONT_HERSHEY_PLAIN, 2, (255, 255, 0), 2)
       
   print(right, left)
   
